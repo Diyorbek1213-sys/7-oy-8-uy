@@ -26,13 +26,21 @@ const productsApi = createApi({
 			query: data =>
 				`/products/search/?q=${data.q}&limit=10&skip=${data.pageS}`,
 		}),
+		getCategories: build.query({
+			query: () => 'https://dummyjson.com/products/category-list'
+		}),
+		getProductByCategory: build.query({
+			query: (category) => `/products/category/${category}/?limit=10`
+		})
 	}),
 });
 
 export const {
 	useGetAllQuery,
+	useGetProductByCategoryQuery,
 	useSearchProductsMutation,
 	useGetByIdQuery,
 	useAddProductMutation,
+	useGetCategoriesQuery
 } = productsApi;
 export default productsApi;

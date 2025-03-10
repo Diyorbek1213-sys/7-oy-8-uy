@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom'
 import Products from './Products';
 import {
 	useGetAllQuery,
 	useSearchProductsMutation,
+	useGetCategoriesQuery
 } from '../lib/apiSlice/productsApi';
 import useDebounce from '../hooks/useDebounce';
+import Categories from './Categories';
 
 const Home = () => {
 	// const formSubmit = async e => {
@@ -24,6 +27,7 @@ const Home = () => {
 	// 			<button className='bg-black text-white rounded px-5 py-1.5'>Add</button>
 	// 		</form>
 	const [page, setPage] = useState(0);
+	const { data: categories, error: cateError, isLoading: cateLoading } = useGetCategoriesQuery();
 	const [pageS, setPageS] = useState(0);
 	const [sortedProducts, setSortedProducts] = useState(null);
 	const [search, setSearch] = useState('');
@@ -32,6 +36,7 @@ const Home = () => {
 	const [searchHandler, { isLoading: isLoadingSearch }] =
 		useSearchProductsMutation();
 	const debouncedValue = useDebounce(search);
+	console.log(categories)
 
 	useEffect(() => {
 		const getP = async () => {
@@ -63,6 +68,9 @@ const Home = () => {
 					placeholder='Search...'
 				/>
 			</form>
+
+			<Categories />
+
 			<Products
 				products={search.length > 0 ? sortedProducts : data?.products}
 				isLoading={search.length > 0 ? isLoadingSearch : isLoading}

@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import ProductDetails from './components/ProductDetails';
 import Navbar from './components/Navbar';
+import Categories from './components/Categories';
+import Filter from './components/Filter';
 
 const App = () => {
 	return (
@@ -11,6 +13,7 @@ const App = () => {
 			<Routes>
 				<Route element={<Home />} path='/' />
 				<Route element={<ProductDetails />} path='/product/:id' />
+				<Route element={<Filter />} path='/filter/:category' />
 			</Routes>
 		</div>
 	);
